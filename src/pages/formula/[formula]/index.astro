@@ -1,0 +1,104 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { Code } from "astro:components";
+import Markdown from "../../../components/Markdown.astro";
+import Link from "../../../components/Link.astro";
+import { formulae, type Formula } from "../../../formulae/server";
+import { get } from "../../../utils";
+
+export interface Props {
+  formula: Formula;
+  readmeMd: string;
+}
+
+export async function getStaticPaths() {
+  return Promise.all(
+    formulae.map(async (x: Formula) => {
+      return {
+        params: {
+          formula: x.id,
+        },
+        props: {
+          formula: x,
+          readmeMd: await get(
+            x.homepage.replace(
+              "://github.com/",
+              "://raw.githubusercontent.com/",
+            ) + "/main/README.md",
+          ),
+        },
+      };
+    }),
+  );
+}
+
+const formula: Formula = Astro.props.formula;
+---
+
+<Layout title={formula.name + " - Homebrew Formulae"}>
+  <h1>{formula.name}</h1>
+
+  <section class="my-8"><Markdown md={formula.desc} inline /></section>
+
+  <section class="my-8">
+    <h2>Install command</h2>
+    <Code
+      class="block text-left w-fit"
+      code={`brew install bloodpagesoftware/tap/${formula.id}`}
+      lang="shell"
+      theme="catppuccin-mocha"
+      wrap
+    />
+  </section>
+
+  {
+    formula.bin.filter((x) => x !== formula.id).length ? (
+      <section class="my-8">
+        <h2 class="inline">Also known as</h2>
+        {formula.bin
+          .filter((x) => x !== formula.id)
+          .map((x) => (
+            <span data-eq-id={formula.id === x}>{x}</span>
+          ))}
+      </section>
+    ) : null
+  }
+
+  <section class="my-8">
+    <Link href={formula.homepage}>{formula.homepage}</Link>
+  </section>
+  <section class="my-8">
+    <h2>Current version</h2>
+    {formula.version}
+  </section>
+
+  <section class="my-8">
+    <h2>Platforms</h2>
+    {
+      formula.platforms
+        .filter((platform) => platform.cpu.length)
+        .map((platform) => (
+          <>
+            <h4 class="mt-2 ml-4">{platform.os}</h4>
+            <ul class="list-disc">
+              {platform.cpu.map((cpu) => (
+                <li class="ml-8">{cpu}</li>
+              ))}
+            </ul>
+          </>
+        ))
+    }
+  </section>
+
+  {
+    Astro.props.readmeMd ? (
+      <section class="my-8">
+        <h2>README.md</h2>
+        <Markdown
+          class="p-4 rounded-md border-2 border-solid border-ctp-crust"
+          md={Astro.props.readmeMd}
+        />
+      </section>
+    ) : null
+  }
+</Layout>

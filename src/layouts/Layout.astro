@@ -1,0 +1,46 @@
+---
+import "../style/index.scss";
+import { formulae } from "../formulae/server.ts";
+import { Search } from "../components/Search.tsx";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Bloodmage Software Homebrew tap" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/homebrew.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="darkreader-lock" />
+    <title>{title}</title>
+  </head>
+
+  <body class="bg-ctp-base text-ctp-text">
+    <img src="/homebrew.svg" class="block mx-auto mt-4 w-24" />
+    <a
+      href="/"
+      class="block mx-auto text-center hover:underline w-fit hover:underline-offset-1"
+    >
+      <p class="text-4xl font-bold">Homebrew</p>
+      <p class="text-lg">bloodmagesoftware/tap</p>
+    </a>
+    <Search client:only="solid" />
+
+    <main class="block px-2 my-16 mx-auto w-full max-w-7xl">
+      <slot />
+    </main>
+    <script
+      is:inline
+      id="formulae"
+      type="application/json"
+      set:html={JSON.stringify(formulae)}
+    />
+  </body>
+</html>
