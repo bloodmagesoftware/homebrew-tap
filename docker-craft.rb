@@ -5,20 +5,20 @@
 class DockerCraft < Formula
   desc "A Docker Compose templating plugin"
   homepage "https://github.com/bloodmagesoftware/docker-craft"
-  version "1.1.1"
+  version "1.2.0"
 
   on_macos do
     on_intel do
-      url "https://github.com/bloodmagesoftware/docker-craft/releases/download/v1.1.1/docker-craft_1.1.1_darwin_amd64.tar.gz"
-      sha256 "c0dc29b6b81c56fb613360e4b05542f3a16ae9f25755c9b4d0a600b50423cc88"
+      url "https://github.com/bloodmagesoftware/docker-craft/releases/download/v1.2.0/docker-craft_1.2.0_darwin_amd64.tar.gz"
+      sha256 "d13e1c214d4fcb376e00e7825ba18d1606d8148c6b189ecba92ec9b69409ab7e"
 
       def install
         bin.install "docker-craft"
       end
     end
     on_arm do
-      url "https://github.com/bloodmagesoftware/docker-craft/releases/download/v1.1.1/docker-craft_1.1.1_darwin_arm64.tar.gz"
-      sha256 "3554be2469d679329cbe8d8b938658cfd5cfd75a4febdb9a7e0db7eb87e1a353"
+      url "https://github.com/bloodmagesoftware/docker-craft/releases/download/v1.2.0/docker-craft_1.2.0_darwin_arm64.tar.gz"
+      sha256 "325c3465829905dbbda9ae7eb753fccf0613bf0c3b1c23203d6972eda2c4e2a8"
 
       def install
         bin.install "docker-craft"
@@ -29,8 +29,8 @@ class DockerCraft < Formula
   on_linux do
     on_intel do
       if Hardware::CPU.is_64_bit?
-        url "https://github.com/bloodmagesoftware/docker-craft/releases/download/v1.1.1/docker-craft_1.1.1_linux_amd64.tar.gz"
-        sha256 "5b40323edd6213b485b77fbd55fced4cc3146e4e4beedddb3f85d4127d966717"
+        url "https://github.com/bloodmagesoftware/docker-craft/releases/download/v1.2.0/docker-craft_1.2.0_linux_amd64.tar.gz"
+        sha256 "17cd6f4aac6971ce3d48d60a06473ee4b3f0131ac103d88d5ea9bae72555dc11"
 
         def install
           bin.install "docker-craft"
@@ -39,8 +39,8 @@ class DockerCraft < Formula
     end
     on_arm do
       if Hardware::CPU.is_64_bit?
-        url "https://github.com/bloodmagesoftware/docker-craft/releases/download/v1.1.1/docker-craft_1.1.1_linux_arm64.tar.gz"
-        sha256 "db687e2945051d0ab51c7950955eae3f98375a8a3518e6763cb39706ec299f6b"
+        url "https://github.com/bloodmagesoftware/docker-craft/releases/download/v1.2.0/docker-craft_1.2.0_linux_arm64.tar.gz"
+        sha256 "6a6914c839d7308b2210e93ef6b28fabbbad5fcd2cebd73f58cd011cb037f654"
 
         def install
           bin.install "docker-craft"
